@@ -35,8 +35,10 @@ function App() {
   return (
     <div className="App">
       <UserForm onAddUser={addUserHandler} onError={errorHandler} />
-      <UserList users={users} onDelete={deleteUserHandler} />
-
+      {users.length > 0 && (
+        <UserList users={users} onDelete={deleteUserHandler} />
+      )}
+      {users.length === 0 && <h2 style={{ color: "white" }}>No users found</h2>}
       {showModal && (
         <Modal
           title="Invalid input"
