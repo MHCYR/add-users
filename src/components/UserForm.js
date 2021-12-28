@@ -8,7 +8,20 @@ const UserForm = (props) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    if (name.trim().length === 0 || age.trim().length === 0) return;
+    if (!name.trim() && !age.trim()) {
+      props.onError("Please enter a name and age");
+      return;
+    } else if (!name.trim() && age.trim()) {
+      props.onError("Please enter a name");
+      return;
+    } else if (name.trim() && !age.trim()) {
+      props.onError("Please enter an age");
+      return;
+    } else if (Number(age) < 0) {
+      props.onError("Age must be a positive number");
+      return;
+    }
+
     const user = {
       name: name,
       age: age,

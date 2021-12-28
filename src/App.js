@@ -12,6 +12,8 @@ const dummyUsers = [
 
 function App() {
   const [users, setUsers] = useState(dummyUsers);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("default content");
 
   function addUserHandler(user) {
     setUsers((prevUsers) => {
@@ -23,11 +25,25 @@ function App() {
       return prevUsers.filter((user) => user.id !== id);
     });
   }
+  function closeModalHandler() {
+    setShowModal(false);
+  }
+  function errorHandler(error) {
+    setShowModal(true);
+    setModalContent(error);
+  }
   return (
     <div className="App">
-      <UserForm onAddUser={addUserHandler} />
+      <UserForm onAddUser={addUserHandler} onError={errorHandler} />
       <UserList users={users} onDelete={deleteUserHandler} />
-      <Modal title="Invalid input" content="modal content" />
+
+      {showModal && (
+        <Modal
+          title="Invalid input"
+          content={modalContent}
+          onClose={closeModalHandler}
+        />
+      )}
     </div>
   );
 }
