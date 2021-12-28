@@ -16,11 +16,15 @@ function App() {
       return [...prevUsers, user];
     });
   }
-
+  function deleteUserHandler(id) {
+    setUsers((prevUsers) => {
+      return prevUsers.filter((user) => user.id !== id);
+    });
+  }
   return (
     <div className="App">
       <UserForm onAddUser={addUserHandler} />
-      <UserList users={users} />
+      <UserList users={users} onDelete={deleteUserHandler} />
     </div>
   );
 }
