@@ -1,6 +1,8 @@
 import { useState } from "react";
 import UserForm from "./components/UserForm";
 import UserList from "./components/UserList";
+import Modal from "./components/UI/Modal";
+
 import "./App.css";
 
 const dummyUsers = [
@@ -25,6 +27,7 @@ function App() {
     <div className="App">
       <UserForm onAddUser={addUserHandler} />
       <UserList users={users} onDelete={deleteUserHandler} />
+      <Modal title="Invalid input" content="modal content" />
     </div>
   );
 }
